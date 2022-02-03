@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script>
+        const peer = new Peer();
+
+        peer.on('open', (id) => {
+            const params = new URLSearchParams(location.search);
+            const isConnectionStarter = params.has('peerId');
+
+            if (isConnectionStarter) {
+                const conn = peer.connect(params.get('peerId'));
+                conn.on('open', handleCommunication); // is triggered directly after initiating the connection (line above)
+            } else {
+                params.set('peerId', id);
+                window.history.replaceState({}, '', `${location.pathname}?${params}`);
+                peer.on('connection', handleCommunication); // event listener that triggers only once the starter has started the connection
+            }
+        });
+
+        function handleCommunication(connection) {
+            // Sending a message:
+            const form = document.querySelector('form');
+            form.addEventListener('submit', () => {
+                const message = document.querySelector('#message').value;
+                connection.send(message);
+                addMessage(true, message);
+            })
+
+            // Receiving a message:
+            connection.on('data', (data) => {
+                addMessage(false, data);
+            });
+        }
+
+        function addMessage(isSender, message) {
+            const allMessages = document.querySelector('#allMessages');
+            const tag = document.createElement("p");
+            const prefix = isSender ? 'me: ' : 'him: ';
+            const text = document.createTextNode(prefix + message);
+            tag.appendChild(text);
+            allMessages.appendChild(tag);
+        }
+    </script>
+
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            min-height: 100vh;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title>PeerJS POC</title>
+</head>
+<body>
+<main>
+    <form onsubmit="event.preventDefault();">
+        <div id="allMessages"></div>
+        <label for="message">Message</label>
+        <textarea id="message" rows="10"></textarea>
+        <button>Send</button>
+    </form>
+</main>
+</body>
+</html>
