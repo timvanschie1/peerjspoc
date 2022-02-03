@@ -9,9 +9,10 @@
             const params = new URLSearchParams(location.search);
             const isConnectionStarter = params.has('peerId');
 
+            console.log(params.get('peerId'));
             if (isConnectionStarter) {
                 const conn = peer.connect(params.get('peerId'));
-                conn.on('open', handleCommunication); // is triggered directly after initiating the connection (line above)
+                conn.on('open', () => handleCommunication(conn)); // is triggered directly after initiating the connection (line above)
             } else {
                 params.set('peerId', id);
                 window.history.replaceState({}, '', `${location.pathname}?${params}`);
