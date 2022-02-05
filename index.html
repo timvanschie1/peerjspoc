@@ -6,7 +6,7 @@
         const params = new URLSearchParams(location.search);
         const isConnectionStarter = params.has('peerId');
 
-        const peer = new Peer(isConnectionStarter ? params.get('peerId') : undefined);
+        const peer = new Peer();
 
         peer.on('open', (id) => {
             if (isConnectionStarter) {
