@@ -3,12 +3,12 @@
 <head>
     <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
     <script>
-        const peer = new Peer();
+        const params = new URLSearchParams(location.search);
+        const isConnectionStarter = params.has('peerId');
+
+        const peer = new Peer(isConnectionStarter ? params.get('peerId') : undefined);
 
         peer.on('open', (id) => {
-            const params = new URLSearchParams(location.search);
-            const isConnectionStarter = params.has('peerId');
-
             if (isConnectionStarter) {
                 const conn = peer.connect(params.get('peerId'));
                 conn.on('open', () => handleCommunication(conn)); // is triggered directly after initiating the connection (line above)
@@ -39,6 +39,7 @@
         function addMessage(isSender, message) {
             const allMessages = document.querySelector('#allMessages');
             const tag = document.createElement("p");
+            tag.style.color = isSender ? 'blue' : 'red';
             const prefix = isSender ? 'me: ' : 'him: ';
             const text = document.createTextNode(prefix + message);
             tag.appendChild(text);
@@ -70,6 +71,13 @@
 <body>
 <main>
     <form onsubmit="event.preventDefault();">
+        <h1>Chat POC to experiment with the PeerJS library</h1>
+        <p>It creates a simple WebRTC peer-to-peer connection.</p>
+        <ol>
+            <li>Go to the <a href="https://infallible-gates-ab17b0.netlify.app">main url</a></a></li>
+            <li>As you can see, the url gets changed; an unique peerId is added. You can share this new url with a friend.</li>
+            <li>When your friend loads the page with that url, you can chat with each other.</li>
+        </ol>
         <div id="allMessages"></div>
         <label for="message">Message</label>
         <textarea id="message" rows="10"></textarea>
