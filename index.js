@@ -44,8 +44,7 @@ function addMessage(isSender, message) {
 
     const p = document.createElement("p");
     p.classList.add(isSender ? 'me' : 'friend')
-    const prefix = isSender ? 'me: ' : 'friend: ';
-    const text = document.createTextNode(prefix + message);
+    const text = document.createTextNode(message);
     p.appendChild(text);
 
     const span = document.createElement("span");
