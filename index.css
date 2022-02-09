@@ -25,7 +25,21 @@ ul {
 }
 
 ol {
+    margin: 1em 0;
     list-style-type: decimal;
+}
+
+h1 {
+    margin: 0 0 1em;
+    font-size: 28px;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+a {
+    color: royalblue;
 }
 
 main {
@@ -39,6 +53,10 @@ main {
 
 main .messages {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2em;
     overflow-y: auto;
 }
 
@@ -63,30 +81,6 @@ aside {
     flex-shrink: 1;
     padding: 2em;
     background-color: #fff;
-}
-
-h1 {
-    margin: 0 0 1em;
-    font-size: 28px;
-}
-
-ol {
-    margin: 1em 0;
-}
-
-p {
-    margin: 0.5em 0;
-}
-
-a {
-    color: royalblue;
-}
-
-.messages {
-    width: 100%;
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
 }
 
 .me,
@@ -122,7 +116,7 @@ a {
 .friend span {
     display: block;
     color: #777;
-    font-size: 0.6em;
+    font-size: 0.7em;
     text-align: right;
 }
 

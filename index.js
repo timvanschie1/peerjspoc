@@ -49,7 +49,7 @@ function addMessage(isSender, message) {
     p.appendChild(text);
 
     const span = document.createElement("span");
-    const readableTime = new Date(Date.now()).toLocaleTimeString('nl-NL');
+    const readableTime = new Date(Date.now()).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
     const date = document.createTextNode(readableTime);
     span.appendChild(date);
 
