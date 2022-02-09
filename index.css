@@ -1,0 +1,138 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    font-family: Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #333;
+    background: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    background-size: 600px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+ul, ol {
+    padding-left: 1em;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 60%;
+}
+
+main .messages {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+main form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1em;
+    background-color: #f0f0f0;
+}
+
+main input {
+    padding: 1em;
+    border: 0 !important;
+    border-radius: 50px;
+    font-size: inherit;
+    outline: none;
+}
+
+aside {
+    border-left: 1px solid lightgray;
+    flex-shrink: 1;
+    padding: 2em;
+    background-color: #fff;
+}
+
+h1 {
+    margin: 0 0 1em;
+    font-size: 28px;
+}
+
+ol {
+    margin: 1em 0;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+a {
+    color: royalblue;
+}
+
+.messages {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.me,
+.friend {
+    margin: 0;
+    padding: 0.3em 0.5em 0.2em;
+    border-radius: 5px;
+}
+
+.me + .friend,
+.friend + .me {
+    margin-top: 1em;
+}
+
+.me + .me,
+.friend + .friend {
+    margin-top: 0.5em;
+}
+
+.me {
+    align-self: flex-end;
+    margin-left: 2em;
+    background: #d9fed2;
+}
+
+.friend {
+    align-self: flex-start;
+    margin-right: 2em;
+    background: white;
+}
+
+.me span,
+.friend span {
+    display: block;
+    color: #777;
+    font-size: 0.6em;
+    text-align: right;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}

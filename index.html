@@ -1,88 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
-    <script>
-        const params = new URLSearchParams(location.search);
-        const isConnectionStarter = params.has('peerId');
-
-        const peer = new Peer();
-
-        peer.on('open', (id) => {
-            if (isConnectionStarter) {
-                const conn = peer.connect(params.get('peerId'));
-                conn.on('open', () => handleCommunication(conn)); // is triggered directly after initiating the connection (line above)
-            } else {
-                params.set('peerId', id);
-                window.history.replaceState({}, '', `${location.pathname}?${params}`);
-                peer.on('connection', handleCommunication); // event listener that triggers only once the starter has started the connection
-            }
-        });
-
-        function handleCommunication(connection) {
-            // Sending a message:
-            const form = document.querySelector('form');
-            form.addEventListener('submit', () => {
-                const messageTextarea = document.querySelector('#message');
-                const message = messageTextarea.value;
-                connection.send(message);
-                addMessage(true, message);
-                messageTextarea.value = '';
-            })
-
-            // Receiving a message:
-            connection.on('data', (data) => {
-                addMessage(false, data);
-            });
-        }
-
-        function addMessage(isSender, message) {
-            const allMessages = document.querySelector('#allMessages');
-            const tag = document.createElement("p");
-            tag.style.color = isSender ? 'blue' : 'red';
-            const prefix = isSender ? 'me: ' : 'him: ';
-            const text = document.createTextNode(prefix + message);
-            tag.appendChild(text);
-            allMessages.appendChild(tag);
-        }
-    </script>
-
-    <style>
-        main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            min-height: 100vh;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            max-width: 400px;
-        }
-    </style>
-
     <meta charset="UTF-8">
-    <title>PeerJS POC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PeerJS Chat POC</title>
+
+    <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js" defer></script>
+    <script src="/index.js" defer></script>
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/index.css">
 </head>
 <body>
 <main>
+    <div id="allMessages" class="messages">
+        <p class="friend">Dit is een bericht van mijn vriend.</p>
+        <p class="friend">Dit is een bericht van mijn vriend.</p>
+        <p class="me">Dit is een bericht van mijn vriend.</p>
+        <p class="friend">Dit is een bericht van mijn vriend.</p>
+        <p class="me">Dit is een bericht van mijn vriend.</p>
+        <p class="me">Dit is een bericht van mijn vriend.</p>
+    </div>
     <form onsubmit="event.preventDefault();">
-        <h1>Chat POC to experiment with the PeerJS library</h1>
-        <p>It creates a simple WebRTC peer-to-peer connection.</p>
-        <ol>
-            <li>Go to the <a href="https://infallible-gates-ab17b0.netlify.app">main url</a></a></li>
-            <li>As you can see, the url gets changed; an unique peerId is added. You can share this new url with a friend.</li>
-            <li>When your friend loads the page with that url, you can chat with each other.</li>
-        </ol>
-        <div id="allMessages"></div>
-        <label for="message">Message</label>
-        <textarea id="message" rows="10"></textarea>
-        <button>Send</button>
+        <input type="text" id="message" title="message" placeholder="Typ een bericht" />
+        <button class="visually-hidden">Send</button>
     </form>
 </main>
+<aside>
+    <h1>Chat POC to experiment with the PeerJS library</h1>
+    <p>It creates a simple WebRTC peer-to-peer connection.</p>
+    <ol>
+        <li>Go to the <a href="https://infallible-gates-ab17b0.netlify.app">main url</a></a></li>
+        <li>As you can see, the url gets changed; a unique peerId is added. You can share this new url with a friend.</li>
+        <li>When your friend loads the page with that url, you can chat with each other.</li>
+    </ol>
+</aside>
 </body>
 </html>
