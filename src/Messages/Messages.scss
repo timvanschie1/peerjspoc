@@ -1,0 +1,44 @@
+.messages {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2em;
+    overflow-y: auto;
+
+    .me,
+    .friend {
+        margin: 0;
+        padding: 0.3em 0.5em 0.2em;
+        border-radius: 5px;
+
+        span {
+            display: block;
+            color: #777;
+            font-size: 0.7em;
+            text-align: right;
+        }
+    }
+
+    .me + .friend,
+    .friend + .me {
+        margin-top: 1em;
+    }
+
+    .me + .me,
+    .friend + .friend {
+        margin-top: 0.5em;
+    }
+
+    .me {
+        align-self: flex-end;
+        margin-left: 2em;
+        background: #d9fed2;
+    }
+
+    .friend {
+        align-self: flex-start;
+        margin-right: 2em;
+        background: white;
+    }
+}

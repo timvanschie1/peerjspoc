@@ -9,15 +9,11 @@ import {
 import Peer from 'peerjs';
 import './reset.css';
 import './App.scss';
-
-type Message = {
-    isSender: boolean;
-    text: string;
-};
+import { MessageType, Messages } from './Messages/Messages';
 
 function App() {
     const connections = useRef<Array<Peer.DataConnection>>([]);
-    const [messages, setMessages] = useState<Array<Message>>([]);
+    const [messages, setMessages] = useState<Array<MessageType>>([]);
     const [messageInput, setMessageInput] = useState<string>('');
 
     useEffect(() => {
@@ -56,7 +52,7 @@ function App() {
         e.preventDefault();
         if (!messageInput) return;
 
-        const newMessage: Message = {
+        const newMessage: MessageType = {
             isSender: true,
             text: messageInput,
         };
@@ -73,13 +69,7 @@ function App() {
     return (
         <Fragment>
             <main>
-                <div id="allMessages" className="messages">
-                    {messages.map(({ isSender, text }, i) => (
-                        <p key={i} className={isSender ? 'me' : 'friend'}>
-                            {text}
-                        </p>
-                    ))}
-                </div>
+                <Messages messages={messages} />
 
                 <form onSubmit={handleFormSubmit}>
                     <input
