@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>PeerJS Chat POC</title>
-
-    <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js" defer></script>
-    <script src="/index.js" defer></script>
-    <link rel="stylesheet" href="/reset.css">
-    <link rel="stylesheet" href="/index.css">
+    <script>
+        let parcelRequire; // Fix for weird error. See: https://github.com/peers/peerjs/issues/753
+    </script>
 </head>
 <body>
-<main>
-    <div id="allMessages" class="messages"></div>
-    <form onsubmit="event.preventDefault();">
-        <input type="text" id="message" title="message" placeholder="Typ een bericht" />
-        <button class="visually-hidden">Send</button>
-    </form>
-</main>
-<aside>
-    <h1>Chat POC to experiment with the PeerJS library</h1>
-    <p>It creates a simple WebRTC peer-to-peer connection.</p>
-    <ol>
-        <li>Go to the <a href="https://infallible-gates-ab17b0.netlify.app">main url</a></a></li>
-        <li>As you can see, the url gets changed; a unique peerId is added. You can share this new url with a friend.</li>
-        <li>When your friend loads the page with that url, you can chat with each other.</li>
-        <li>No server is used! Just HTML, CSS, JS on a CDN 😃</li>
-    </ol>
-</aside>
+<div id="root" class="root"></div>
+<script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

@@ -3,13 +3,17 @@ html, body {
 }
 
 body {
-    display: flex;
     font-family: Helvetica, sans-serif;
     font-size: 16px;
     line-height: 1.4;
     color: #333;
     background: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
     background-size: 600px;
+}
+
+.root {
+    display: flex;
+    min-height: 100%;
 }
 
 * {
@@ -49,38 +53,31 @@ main {
     justify-content: center;
     flex-shrink: 0;
     width: 60%;
-}
 
-main .messages {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 2em;
-    overflow-y: auto;
-}
+    .messages {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 2em;
+        overflow-y: auto;
+    }
 
-main form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 1em;
-    background-color: #f0f0f0;
-}
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 1em;
+        background-color: #f0f0f0;
+    }
 
-main input {
-    padding: 1em;
-    border: 0 !important;
-    border-radius: 50px;
-    font-size: inherit;
-    outline: none;
-}
-
-aside {
-    border-left: 1px solid lightgray;
-    flex-shrink: 1;
-    padding: 2em;
-    background-color: #fff;
+    input {
+        padding: 1em;
+        border: 0 !important;
+        border-radius: 50px;
+        font-size: inherit;
+        outline: none;
+    }
 }
 
 .me,
@@ -88,7 +85,15 @@ aside {
     margin: 0;
     padding: 0.3em 0.5em 0.2em;
     border-radius: 5px;
+
+    span {
+        display: block;
+        color: #777;
+        font-size: 0.7em;
+        text-align: right;
+    }
 }
+
 
 .me + .friend,
 .friend + .me {
@@ -112,12 +117,11 @@ aside {
     background: white;
 }
 
-.me span,
-.friend span {
-    display: block;
-    color: #777;
-    font-size: 0.7em;
-    text-align: right;
+aside {
+    border-left: 1px solid lightgray;
+    flex-shrink: 1;
+    padding: 2em;
+    background-color: #fff;
 }
 
 .visually-hidden {
